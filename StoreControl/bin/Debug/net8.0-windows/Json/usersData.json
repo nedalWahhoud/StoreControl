@@ -1,0 +1,16 @@
+{
+  "Users": [
+    {
+      "userId": 1,
+      "userName": "nedalWa",
+      "passwordHash": "912ad86eb19aef7d92a9fa1dfa08cb79a1de0b2dd78644f3ac4544574f996ae0",
+      "CreatedAt": "2025-04-16T17:02:48"
+    },
+    {
+      "userId": 2,
+      "userName": "muster",
+      "passwordHash": "74cd18c016d902f940554dfd07545f219064b27fe6e890e9447f0c9e377903a8",
+      "CreatedAt": "2025-04-18T07:44:17"
+    }
+  ]
+}
