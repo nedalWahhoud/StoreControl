@@ -17,6 +17,9 @@ Planned features for upcoming versions of the program include:
 - 📇 Management of customer data and addresses to make product delivery more efficient
 - 🛠️ Fixing bugs and improving overall stability
 - 🚀 Further optimizations and new features based on real-world use in the store
+#🗄️ Database
+The program uses a database to store all product information and inventory data. The database is named storecontrol and is included in the repository.
+I've already added some test data to the database so you can try out the program right away. You can modify or delete this data at any time to manage your own products.
 
 # 👨‍👦 Background
 This program was developed for my father's store to make his daily work easier. It was tailored to his needs – especially management and automatic alerts when the minimum stock level is undershot.
