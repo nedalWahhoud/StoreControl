@@ -9,5 +9,12 @@ Ideal for small retail stores or internal inventory management.
 - 🔍 Search products by Product ID, name, or category
 - 💾 Store product data in a MySQL database
 ![Screenshot 2025-04-19 090516](https://github.com/user-attachments/assets/16ced7b4-8b0a-4b9d-9eac-8ac97cbd5411)</b>
+# 🔮 Future Developments
+Planned features for upcoming versions of the program include:
+
+- 📇 Management of customer data and addresses to make product delivery more efficient
+- 🛠️ Fixing bugs and improving overall stability
+- 🚀 Further optimizations and new features based on real-world use in the store
+
 # 👨‍👦  Background
 This program was developed for my father's store to make his daily work easier. It was tailored to his needs – especially simple product management and automatic alerts when the minimum stock level is undershot.
