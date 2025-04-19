@@ -19,4 +19,4 @@ Planned features for upcoming versions of the program include:
 - 🚀 Further optimizations and new features based on real-world use in the store
 
 # 👨‍👦 Background
-This program was developed for my father's store to make his daily work easier. It was tailored to his needs – especially simple product management and automatic alerts when the minimum stock level is undershot.
+This program was developed for my father's store to make his daily work easier. It was tailored to his needs – especially management and automatic alerts when the minimum stock level is undershot.
