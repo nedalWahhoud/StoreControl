@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StoreControl")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("0.0.0.3")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.0.0.3+afdb20df5e46dafbb63ccc933c55f2fb1cd6f8e2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.0.0.3+975b4cc0bfa145951c8cb8f38a0b3d967cb5609d")]
 [assembly: System.Reflection.AssemblyProductAttribute("StoreControl")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StoreControl")]
 [assembly: System.Reflection.AssemblyVersionAttribute("0.0.0.3")]
