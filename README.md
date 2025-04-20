@@ -20,5 +20,14 @@ Planned features for upcoming versions of the program include:
 # 🗄️ Database
 The program uses a database to store all product information and inventory data. The database is named storecontrol and is included in the repository.
 I've already added some test data to the database so you can try out the program right away. You can modify or delete this data at any time to manage your own products.
+# 🔐 Test User Access
+The storecontrol database already includes a sample user account for testing purposes.
+Passwords are securely stored as hashes – no plain text passwords!
+## 👤 Test User:
+- Username: nedalWa
+- Password: 50522356</br>
+## There is also a demo user account available for trying things out:
+- Username: muster
+- Password: muster
 # 👨‍👦 Background
 This program was developed for my father's store to make his daily work easier. It was tailored to his needs – especially management and automatic alerts when the minimum stock level is undershot.
