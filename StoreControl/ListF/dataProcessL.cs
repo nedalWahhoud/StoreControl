@@ -1,7 +1,9 @@
 ﻿using StoreControl.Database;
+using StoreControl.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,13 +14,15 @@ namespace StoreControl.ListF
     internal class dataProcessL
     {
         private frameList frameList;
+        private dataProcessJ dpJ;
         public dataProcessL(frameList frameList)
         {
             this.frameList = frameList;
-            if (frameList.comboLang.Items.Count == 0) getComboBox();
+            dpJ ??= new dataProcessJ();
+            if (frameList.comboLang.Items.Count == 0) getComboBoxLang();
         }
 
-        private void getComboBox()
+        private void getComboBoxLang()
         {
             foreach (string st in staticVariable.langArray)
             {
@@ -34,19 +38,11 @@ namespace StoreControl.ListF
                : (translation.Key_word, translation.de))
                .ToList();
 
-            foreach (var translated in translateds)
-            {
-                if (translated.Item1 == "lang")
-                    frameList.lang.Content = translated.Item2;
-                else if(translated.Item1 == "exit")
-                    frameList.exitB.Content = translated.Item2;
-                else if (translated.Item1 == "products")
-                    frameList.productsB.Content = translated.Item2;
-                else if (translated.Item1 == "logIn")
-                    frameList.logInB.Content = translated.Item2;
-                else if (translated.Item1 == "clients")
-                    frameList.clientsB.Content = translated.Item2;
-            }
+            frameList.lang.Content = translateds.Find(c => c.Item1.ToString() == "lang").Item2;
+            frameList.logInB.Content = translateds.Find(c => c.Item1.ToString() == "logIn").Item2;
+            frameList.exitB.Content = translateds.Find(c => c.Item1.ToString() == "products").Item2;
+            frameList.customerB.Content = translateds.Find(c => c.Item1.ToString() == "customer").Item2;
+            frameList.exitB.Content = translateds.Find(c => c.Item1.ToString() == "exit").Item2;
 
             return translateds;
         }

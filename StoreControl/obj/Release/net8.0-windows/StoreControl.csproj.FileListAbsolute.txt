@@ -107,10 +107,10 @@ C:\Users\nedal\source\repos\StoreControl\StoreControl\obj\Release\net8.0-windows
 C:\Users\nedal\source\repos\StoreControl\StoreControl\obj\Release\net8.0-windows\StoreControl.AssemblyInfoInputs.cache
 C:\Users\nedal\source\repos\StoreControl\StoreControl\obj\Release\net8.0-windows\StoreControl.AssemblyInfo.cs
 C:\Users\nedal\source\repos\StoreControl\StoreControl\obj\Release\net8.0-windows\StoreControl.csproj.CoreCompileInputs.cache
+C:\Users\nedal\source\repos\StoreControl\StoreControl\obj\Release\net8.0-windows\StoreControl.sourcelink.json
 C:\Users\nedal\source\repos\StoreControl\StoreControl\obj\Release\net8.0-windows\StoreCon.97E4A89D.Up2Date
 C:\Users\nedal\source\repos\StoreControl\StoreControl\obj\Release\net8.0-windows\StoreControl.dll
 C:\Users\nedal\source\repos\StoreControl\StoreControl\obj\Release\net8.0-windows\refint\StoreControl.dll
 C:\Users\nedal\source\repos\StoreControl\StoreControl\obj\Release\net8.0-windows\StoreControl.pdb
 C:\Users\nedal\source\repos\StoreControl\StoreControl\obj\Release\net8.0-windows\StoreControl.genruntimeconfig.cache
 C:\Users\nedal\source\repos\StoreControl\StoreControl\obj\Release\net8.0-windows\ref\StoreControl.dll
-C:\Users\nedal\source\repos\StoreControl\StoreControl\obj\Release\net8.0-windows\StoreControl.sourcelink.json

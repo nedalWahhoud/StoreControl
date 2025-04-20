@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Security.Cryptography;
 using StoreControl.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace StoreControl.LogIn
 {
@@ -29,12 +30,25 @@ namespace StoreControl.LogIn
             mainWindow = (MainWindow)Application.Current.MainWindow;
 
             // translation of this frame
-            using (var context = new MyDbContext())
+            if (Flags.isDatabaseConnected)
+                frameTranslation();
+        }
+
+        private  void frameTranslation()
+        {
+            try
             {
-                List<Translation> translations = context.translation
-                    .Where(t => staticVariable.keywordLI.Contains(t.Key_word))
-                    .ToList();
-                staticVariable.dpLI.setTranslation(translations);
+                using (var context = new MyDbContext())
+                {
+                    List<Translation> translations =  context.translation
+                        .Where(t => staticVariable.keywordLI.Contains(t.Key_word))
+                        .ToList();
+                    staticVariable.dpLI!.setTranslation(translations);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -68,13 +82,15 @@ namespace StoreControl.LogIn
                         frameList = (frameList)mainWindow.frameList.Content;
                         staticVariable.currentUser = user;
                         frameList.productsB.IsEnabled = true;
-                        frameList.clientsB.IsEnabled = true;
+                        frameList.customerB.IsEnabled = true;
                         frameList.showFrameP();
                         frameList.logInB.Visibility = Visibility.Hidden;
                         frameList.productsB.Margin = new Thickness(frameList.productsB.Margin.Left, frameList.productsB.Margin.Top - 100, frameList.productsB.Margin.Right, frameList.productsB.Margin.Bottom);
-                        frameList.clientsB.Margin = new Thickness(frameList.clientsB.Margin.Left, frameList.clientsB.Margin.Top - 100, frameList.clientsB.Margin.Right, frameList.clientsB.Margin.Bottom);
+                        frameList.customerB.Margin = new Thickness(frameList.customerB.Margin.Left, frameList.customerB.Margin.Top - 100, frameList.customerB.Margin.Right, frameList.customerB.Margin.Bottom);
                         // as jason save (data suggestion, and user reminder zeck)
                         dpJ.saveOrUpdateUser(user);
+                        // 
+                        Flags.isDatabaseConnected = true;
                     }
                     else
                     {

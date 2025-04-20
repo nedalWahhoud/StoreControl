@@ -48,8 +48,6 @@ namespace StoreControl.ProductsF
                     setCategoriesC();
                     // add Items datagrid
                     addColumnsDG(translateds);
-
-                   
                 }
             }
             catch (Exception ex)
@@ -150,7 +148,7 @@ namespace StoreControl.ProductsF
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         public async Task<List<Products>> LoadMoreProducts()
@@ -237,11 +235,6 @@ namespace StoreControl.ProductsF
             {
                 rowIndex = existingCount + i + 1;
 
-
-                if (products[i].productsId == 91)
-                {
-
-                }
                 productsDG newProduct = new productsDG()
                 {
                     rowIndex = rowIndex,
@@ -255,6 +248,7 @@ namespace StoreControl.ProductsF
                     purchasePrice = products[i].purchasePrice,
                     sellingPrice = products[i].sellingPrice,
                     minimumStock = products[i].minimumStock,
+                    // binding for DataTrigger in datagrid as value 
                     isMinimumStock = products[i].quantity <= products[i].minimumStock,
                     img = products[i].img,
                     userId = products[i].userId,
@@ -282,7 +276,6 @@ namespace StoreControl.ProductsF
                 double columnWidth = 149;
                 double columnWidthC = 50;
                 double rowHeight = 100;
-                
                 //
                 foreach ((string, string) st in sortedTranslateds)
                 {
@@ -321,7 +314,7 @@ namespace StoreControl.ProductsF
                             DisplayMemberPath = "categoryName",
                             ItemsSource = frameProducts.categoryCB.ItemsSource
                         };
-                        
+
 
                         frameProducts.dataGrid.Columns.Add(comboBoxColumn);
                     }
@@ -342,7 +335,7 @@ namespace StoreControl.ProductsF
                         new DataTrigger
                         {
                             Binding = new Binding("isMinimumStock"),
-                            Value = true, 
+                            Value = true,
                             Setters =
                             {
                                 new Setter { Property = TextBlock.BackgroundProperty, Value = Brushes.Red },
@@ -393,9 +386,6 @@ namespace StoreControl.ProductsF
                          (Flags.minimumStockMode == true ? p.quantity < p.minimumStock : true)
                          ));
                     }
-
-                    
-
                         products = await query
                         .OrderByDescending(p => p.productsId)
                         .Skip(staticVariable.currentPageDG * staticVariable.pageSizeDG)

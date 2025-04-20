@@ -89,10 +89,10 @@
             <StaticResource ResourceKey="CustomComboBoxItemStyle"/>
             </ComboBox.ItemContainerStyle>
         </ComboBox>
-        <Button x:Name="logInB" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Button" Height="48" Width="108" Margin="21,100,0,0" Click="logInB_Click" />
-        <Button x:Name="productsB" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Button" Height="48" Width="108" Margin="21,200,0,0" Click="productsB_Click" IsEnabled="False"/>
-        <Button x:Name="clientsB" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Button" Height="48" Width="108" Margin="21,300,0,0" Click="clientsB_Click" IsEnabled="False"/>
-        <Button x:Name="exitB" Content="Button" HorizontalAlignment="Left"  Height="48" Width="108" Margin="21,800,0,0" VerticalAlignment="Top" Click="exitB_Click"/>
+        <Button x:Name="logInB" Content="logInB" HorizontalAlignment="Left" VerticalAlignment="Top"  Height="48" Width="108" Margin="21,100,0,0" Click="logInB_Click" />
+        <Button x:Name="productsB" Content="productsB" HorizontalAlignment="Left" VerticalAlignment="Top"  Height="48" Width="108" Margin="21,200,0,0" Click="productsB_Click" IsEnabled="False"/>
+        <Button x:Name="customerB" Content="clientsB" HorizontalAlignment="Left" VerticalAlignment="Top"  Height="48" Width="108" Margin="21,300,0,0" Click="clientsB_Click" IsEnabled="False"/>
+        <Button x:Name="exitB" Content="extB" HorizontalAlignment="Left"  Height="48" Width="108" Margin="21,800,0,0" VerticalAlignment="Top" Click="exitB_Click"/>
     </Grid>
 </Page>
 

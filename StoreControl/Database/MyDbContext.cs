@@ -17,9 +17,17 @@ namespace StoreControl.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            ServerVersion serverVersion = ServerVersion.AutoDetect("server=localhost;database=goodspro;user=root;password=;");
+            try
+            {
+                ServerVersion serverVersion = ServerVersion.AutoDetect("server=localhost;database=storecontrol;user=root;password=;");
 
-            optionsBuilder.UseMySql("server=localhost;database=goodspro;user=root;password=;", serverVersion);
+                optionsBuilder.UseMySql("server=localhost;database=storecontrol;user=root;password=;", serverVersion);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}" + ex.Message);
+                Flags.isDatabaseConnected = false;
+            }
         }
     }
 }

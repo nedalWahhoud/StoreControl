@@ -1,13 +1,17 @@
-﻿using System.Net.Http;
+﻿using StoreControl.Json;
+using System.Net.Http;
+using System.Runtime.Intrinsics.Arm;
 
 
 namespace StoreControl
 {
     internal class dataProcessM
     {
+
+        
         public dataProcessM()
         {
-            // Constructor logic here
+            
         }
         public static async Task<bool> CheckInternetAsync()
         {
@@ -29,5 +33,7 @@ namespace StoreControl
                 return false;
             }
         }
+
+       
     }
 }

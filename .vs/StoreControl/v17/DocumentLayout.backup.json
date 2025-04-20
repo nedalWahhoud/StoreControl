@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\nedal\\source\\repos\\StoreControl\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A396D64A-456D-49F1-864D-783A2CC1A24A}|StoreControl\\StoreControl.csproj|c:\\users\\nedal\\source\\repos\\storecontrol\\storecontrol\\login\\framelogin.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A396D64A-456D-49F1-864D-783A2CC1A24A}|StoreControl\\StoreControl.csproj|solutionrelative:storecontrol\\login\\framelogin.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A396D64A-456D-49F1-864D-783A2CC1A24A}|StoreControl\\StoreControl.csproj|c:\\users\\nedal\\source\\repos\\storecontrol\\storecontrol\\productsf\\frameproducts.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A396D64A-456D-49F1-864D-783A2CC1A24A}|StoreControl\\StoreControl.csproj|solutionrelative:storecontrol\\productsf\\frameproducts.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A396D64A-456D-49F1-864D-783A2CC1A24A}|StoreControl\\StoreControl.csproj|c:\\users\\nedal\\source\\repos\\storecontrol\\storecontrol\\productsf\\dataprocessp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A396D64A-456D-49F1-864D-783A2CC1A24A}|StoreControl\\StoreControl.csproj|solutionrelative:storecontrol\\productsf\\dataprocessp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A396D64A-456D-49F1-864D-783A2CC1A24A}|StoreControl\\StoreControl.csproj|c:\\users\\nedal\\source\\repos\\storecontrol\\storecontrol\\productsf\\frameproducts.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A396D64A-456D-49F1-864D-783A2CC1A24A}|StoreControl\\StoreControl.csproj|solutionrelative:storecontrol\\productsf\\frameproducts.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A396D64A-456D-49F1-864D-783A2CC1A24A}|StoreControl\\StoreControl.csproj|c:\\users\\nedal\\source\\repos\\storecontrol\\storecontrol\\productsf\\productsdg.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A396D64A-456D-49F1-864D-783A2CC1A24A}|StoreControl\\StoreControl.csproj|solutionrelative:storecontrol\\productsf\\productsdg.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A396D64A-456D-49F1-864D-783A2CC1A24A}|StoreControl\\StoreControl.csproj|c:\\users\\nedal\\source\\repos\\storecontrol\\storecontrol\\database\\products.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A396D64A-456D-49F1-864D-783A2CC1A24A}|StoreControl\\StoreControl.csproj|solutionrelative:storecontrol\\database\\products.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,16 +46,63 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "frameLogIn.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\nedal\\source\\repos\\StoreControl\\StoreControl\\LogIn\\frameLogIn.xaml.cs",
-              "RelativeDocumentMoniker": "StoreControl\\LogIn\\frameLogIn.xaml.cs",
-              "ToolTip": "C:\\Users\\nedal\\source\\repos\\StoreControl\\StoreControl\\LogIn\\frameLogIn.xaml.cs",
-              "RelativeToolTip": "StoreControl\\LogIn\\frameLogIn.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAANAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "productsDG.cs",
+              "DocumentMoniker": "C:\\Users\\nedal\\source\\repos\\StoreControl\\StoreControl\\ProductsF\\productsDG.cs",
+              "RelativeDocumentMoniker": "StoreControl\\ProductsF\\productsDG.cs",
+              "ToolTip": "C:\\Users\\nedal\\source\\repos\\StoreControl\\StoreControl\\ProductsF\\productsDG.cs",
+              "RelativeToolTip": "StoreControl\\ProductsF\\productsDG.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-18T17:45:57.292Z",
+              "WhenOpened": "2025-04-20T18:52:01.173Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Products.cs",
+              "DocumentMoniker": "C:\\Users\\nedal\\source\\repos\\StoreControl\\StoreControl\\Database\\Products.cs",
+              "RelativeDocumentMoniker": "StoreControl\\Database\\Products.cs",
+              "ToolTip": "C:\\Users\\nedal\\source\\repos\\StoreControl\\StoreControl\\Database\\Products.cs",
+              "RelativeToolTip": "StoreControl\\Database\\Products.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T18:51:51.954Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "frameProducts.xaml",
+              "DocumentMoniker": "C:\\Users\\nedal\\source\\repos\\StoreControl\\StoreControl\\ProductsF\\frameProducts.xaml",
+              "RelativeDocumentMoniker": "StoreControl\\ProductsF\\frameProducts.xaml",
+              "ToolTip": "C:\\Users\\nedal\\source\\repos\\StoreControl\\StoreControl\\ProductsF\\frameProducts.xaml",
+              "RelativeToolTip": "StoreControl\\ProductsF\\frameProducts.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-20T18:48:54.418Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "frameProducts.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\nedal\\source\\repos\\StoreControl\\StoreControl\\ProductsF\\frameProducts.xaml.cs",
+              "RelativeDocumentMoniker": "StoreControl\\ProductsF\\frameProducts.xaml.cs",
+              "ToolTip": "C:\\Users\\nedal\\source\\repos\\StoreControl\\StoreControl\\ProductsF\\frameProducts.xaml.cs",
+              "RelativeToolTip": "StoreControl\\ProductsF\\frameProducts.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAANQAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T18:39:26.09Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "dataProcessP.cs",
+              "DocumentMoniker": "C:\\Users\\nedal\\source\\repos\\StoreControl\\StoreControl\\ProductsF\\dataProcessP.cs",
+              "RelativeDocumentMoniker": "StoreControl\\ProductsF\\dataProcessP.cs",
+              "ToolTip": "C:\\Users\\nedal\\source\\repos\\StoreControl\\StoreControl\\ProductsF\\dataProcessP.cs",
+              "RelativeToolTip": "StoreControl\\ProductsF\\dataProcessP.cs",
+              "ViewState": "AgIAAOUAAAAAAAAAAAAQwAIBAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-20T18:36:16.693Z"
             }
           ]
         }

@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "StoreControl/0.0.0.1": {
+      "StoreControl/0.0.0.3": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Tools": "8.0.3",
           "Pomelo.EntityFrameworkCore.MySql": "8.0.3",
@@ -571,7 +571,7 @@
     }
   },
   "libraries": {
-    "StoreControl/0.0.0.1": {
+    "StoreControl/0.0.0.3": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

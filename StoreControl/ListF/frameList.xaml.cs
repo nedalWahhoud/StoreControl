@@ -1,5 +1,6 @@
 ﻿using StoreControl.Clients;
 using StoreControl.Database;
+using StoreControl.Json;
 using StoreControl.ListF;
 using StoreControl.LogIn;
 using StoreControl.ProductsF;
@@ -28,12 +29,16 @@ namespace StoreControl
     {
         private MainWindow mainWindow;
         private dataProcessL dpL; 
+        private dataProcessJ dpJ;
         public frameList()
         {
             InitializeComponent();
             mainWindow = (MainWindow)Application.Current.MainWindow;
-            dpL = new dataProcessL(this);
-            
+            dpL ??= new dataProcessL(this);
+            dpJ ??= new dataProcessJ();
+            // get saved language
+            Lang lang = dpJ.getLang();
+            staticVariable.lang = lang.lang;
             comboLang.SelectedItem = staticVariable.lang;
         }
         // buttons
@@ -95,10 +100,9 @@ namespace StoreControl
             {
                 using (var context = new MyDbContext())
                 {
-
+                    // cget from database translation only für configured frames
                     bool productsActive = mainWindow.frameProducts.Content != null;
                     bool logInActive = mainWindow.frameLogIn.Content != null;
-
 
                     List<Translation> translations = context.translation
                     .Where(t =>
@@ -111,11 +115,17 @@ namespace StoreControl
                     if (logInActive) staticVariable.dpLI!.setTranslation(translations);
 
                     dpL.setTranslation(translations);
+                    
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                // update saved language
+                dpJ.updateLang(staticVariable.lang);
             }
         }
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)

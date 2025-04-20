@@ -1,4 +1,5 @@
 ﻿using StoreControl.LogIn;
+using System.Runtime.Intrinsics.Arm;
 using System.Windows;
 
 namespace StoreControl
@@ -13,6 +14,8 @@ namespace StoreControl
 
             InitializeComponent();
 
+           
+            //
             frameList.Content = new frameList();
             frameLogIn.Content = new frameLogIn();
         }

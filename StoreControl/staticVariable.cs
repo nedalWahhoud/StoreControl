@@ -8,7 +8,7 @@ namespace StoreControl
     internal class staticVariable
     {
         public static string Version = "0.0.0.1";
-        public static string lang = "en";
+        public static string? lang = null;
         public static string folderPath = "";
         public static string[] langArray = new string[] { "en", "de" };
         public const int MediumblobLimit = 16 * 1024 * 1024; // 16 MB
@@ -26,7 +26,7 @@ namespace StoreControl
         public static SolidColorBrush darkGrayC = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C2C2C"));
         public static List<string> keywordP = new List<string> { "rowIndex", "productsId", "productName", "category", "description", "articleNumber", "purchasePrice", "sellingPrice", "quantity", "minimumStock",
             "create", "edit", "delete", "clear", "uploadImg", "searchTB", "noData","img" };
-        public static List<string> keywordL = new List<string> { "lang", "exit", "products", "logIn", "clients" };
+        public static List<string> keywordL = new List<string> { "lang", "exit", "products", "logIn", "customer" };
         public static List<string> keywordLI = new List<string> { "userName", "password", "logIn" };
         public static User currentUser = new User();
     }

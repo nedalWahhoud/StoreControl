@@ -14,5 +14,6 @@ namespace StoreControl
         public static bool isResizeFP { get; set; } = false;
         public static bool minimumStockMode { get; set; } = false;
         public static bool allProductsLoadedDB = false;
+        public static bool isDatabaseConnected { set; get; } = true;
     }
 }

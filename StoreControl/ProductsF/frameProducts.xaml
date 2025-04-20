@@ -256,14 +256,15 @@
       
         <Label x:Name="articleNumber" Content="articleNumber" HorizontalAlignment="Left" Margin="450,64,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.349,-0.503" Height="31" Width="118" FontSize="14"/>
         <TextBox x:Name="articleNumberTB" HorizontalAlignment="Left" Margin="574,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="30" FontSize="14" PreviewTextInput="articleNumberTB_PreviewTextInput" DataObject.Pasting="articleNumberTB_Pasting" />
+        <Label x:Name="quantity" Content="quantity" HorizontalAlignment="Left" Margin="450,114,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.349,-0.503" Height="31" Width="104" FontSize="14"/>
+        <TextBox x:Name="quantityTB" HorizontalAlignment="Left" Margin="574,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="30" FontSize="14" PreviewTextInput="quantityTB_PreviewTextInput" DataObject.Pasting="quantityTB_Pasting" />
         <Label x:Name="purchasePrice" Content="purchasePrice" HorizontalAlignment="Left" Margin="730,13,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.349,-0.503" Height="31" Width="104" FontSize="14"/>
         <TextBox x:Name="purchasePriceTB" HorizontalAlignment="Left" Margin="855,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="30" FontSize="14" PreviewTextInput="purchasePriceTB_PreviewTextInput" DataObject.Pasting="purchasePriceTB_Pasting" />
         <Label x:Name="sellingPrice" Content="sellingPrice" HorizontalAlignment="Left" Margin="730,64,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="sellingPriceTB" HorizontalAlignment="Left" Margin="855,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="30" FontSize="14" PreviewTextInput="sellingPriceTB_PreviewTextInput" DataObject.Pasting="sellingPriceTB_Pasting" />
-        <Label x:Name="quantity" Content="quantity" HorizontalAlignment="Left" Margin="450,114,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.349,-0.503" Height="31" Width="104" FontSize="14"/>
-        <TextBox x:Name="quantityTB" HorizontalAlignment="Left" Margin="574,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="30" FontSize="14" PreviewTextInput="quantityTB_PreviewTextInput" DataObject.Pasting="quantityTB_Pasting" />
         <Label x:Name="minimumStock" Content="minimumStock" HorizontalAlignment="Left" Margin="730,114,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.349,-0.503" Height="38" Width="120" FontSize="14"/>
         <TextBox x:Name="minimumStockTB" HorizontalAlignment="Left" Margin="855,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="30" FontSize="14" PreviewTextInput="minimumStockTB_PreviewTextInput" DataObject.Pasting="minimumStockTB_Pasting" />
+        <Button x:Name="imgB" Content="Button" HorizontalAlignment="Left" Margin="1048,12,0,0" VerticalAlignment="Top" Width="97" Height="25" Click="imgB_Click"/>
         <Image x:Name="img" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="1049,50,0,0" Height="300" Stretch="Fill" />
         <DataGrid x:Name="dataGrid" HorizontalScrollBarVisibility="Auto" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns="False" Width="27" Margin="7,369,0,9" RenderTransformOrigin="0.5,0.5" SelectionChanged="dataGrid_SelectionChanged"
                   SelectionMode="Single" ScrollViewer.ScrollChanged="dataGrid_ScrollChanged" >
@@ -281,7 +282,6 @@
         <Button x:Name="deleteB" Content="Button" HorizontalAlignment="Left" Margin="468,219,0,0" VerticalAlignment="Top" Height="49" Width="115" Click="deleteB_Click" />
         <Button x:Name="clearB" Content="Button" HorizontalAlignment="Left" Margin="668,219,0,0" VerticalAlignment="Top" Height="49" Width="115" Click="clearB_Click" />
         <Button x:Name="minimumStockB" Content="Button" HorizontalAlignment="Left" Margin="868,219,0,0" VerticalAlignment="Top" Height="49" Width="115" Click="minimumStockB_Click" />
-        <Button x:Name="imgB" Content="Button" HorizontalAlignment="Left" Margin="1048,12,0,0" VerticalAlignment="Top" Width="97" Height="25" Click="imgB_Click"/>
         <TextBox x:Name="searchTB" HorizontalAlignment="Left" Margin="363,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322" Height="29" TextChanged="searchTB_TextChanged"  Style="{StaticResource WatermarkTextBox}" />
         <TextBlock x:Name="NoDataText"
                Text="No data available"

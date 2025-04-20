@@ -48,7 +48,6 @@ namespace StoreControl
             await LoadMoreSearchedProductsAsync();
             
         }
-
         private void xSearching_Click(object sender, RoutedEventArgs e)
         {
             searchTB.Text = null;
@@ -109,7 +108,6 @@ namespace StoreControl
             }
             Flags.isLoadingDB = false;
         }
-
         public async Task LoadMoreProductsAsync()
         {
             Flags.isLoadingDB = true;
@@ -280,10 +278,19 @@ namespace StoreControl
                                 selectedRow.Category = products.Category;
                             }
                             if (isArticleNumberChanged) selectedRow.articleNumber = products.articleNumber;
-                            if (isQuantityChanged) selectedRow.quantity = products.quantity;
+                            if (isQuantityChanged) {
+                                selectedRow.quantity = products.quantity;
+                                // Recalculate isMinimumStock after possible changes
+                                selectedRow.isMinimumStock = selectedRow.quantity <= selectedRow.minimumStock;
+                            }
                             if (isPurchasePriceChanged) selectedRow.purchasePrice = products.purchasePrice;
                             if (isSellingPriceChanged) selectedRow.sellingPrice = products.sellingPrice;
-                            if (isMinimumStockChanged) selectedRow.minimumStock = products.minimumStock;
+                            if (isMinimumStockChanged)
+                            {
+                                selectedRow.minimumStock = products.minimumStock;
+                                // Recalculate isMinimumStock after possible changes
+                                selectedRow.isMinimumStock = selectedRow.quantity <= selectedRow.minimumStock;
+                            }
                             if (isImageChanged) selectedRow.img = products.img;
                             if (dataGrid.Columns[staticVariable.columnOrder.FindIndex(c => c == "category")] is DataGridComboBoxColumn comboColumn)
                             {

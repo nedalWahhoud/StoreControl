@@ -69,7 +69,7 @@ namespace StoreControl.Clients {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/StoreControl;V0.0.0.1;component/clients/frameclients.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/StoreControl;V0.0.0.3;component/clients/frameclients.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Clients\frameClients.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

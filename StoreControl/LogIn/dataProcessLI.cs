@@ -22,12 +22,9 @@ namespace StoreControl.LogIn
 
             foreach (var translated in translateds)
             {
-                if (translated.Item1 == "userName")
-                    frameLogIn.userName.Content = translated.Item2;
-                else if (translated.Item1 == "password")
-                    frameLogIn.passwort.Content = translated.Item2;
-                else if (translated.Item1 == "logIn")
-                    frameLogIn.logInB.Content = translated.Item2;
+                frameLogIn.userName.Content = translateds.Find(c => c.Item1.ToString() == "userName").Item2;
+                frameLogIn.passwort.Content = translateds.Find(c => c.Item1.ToString() == "password").Item2;
+                frameLogIn.logInB.Content = translateds.Find(c => c.Item1.ToString() == "logIn").Item2;
             }
 
             return translateds;
