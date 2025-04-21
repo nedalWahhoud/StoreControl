@@ -9,6 +9,9 @@ Ideal for small retail stores or internal inventory management.
 - 🔍 Search products by Product ID, name, or category
 - 💾 Store product data in a MySQL database
 ![Screenshot 2025-04-19 090516](https://github.com/user-attachments/assets/16ced7b4-8b0a-4b9d-9eac-8ac97cbd5411)</b>
+# 🛠️ Built With
+Frontend: WPF in C#
+Backend: mySql
 # 🔮 Future Developments
 Planned features for upcoming versions of the program include:
 - 🧾 Development of a custom point-of-sale (POS) system with support for USB barcode scanners, which will:
