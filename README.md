@@ -12,6 +12,7 @@ Ideal for small retail stores or internal inventory management.
 # 🛠️ Built With
 - Frontend: WPF in C#
 - Backend: mySql
+- Data Access: Entity Framework 
 # 🔮 Future Developments
 Planned features for upcoming versions of the program include:
 - 🧾 Development of a custom point-of-sale (POS) system with support for USB barcode scanners, which will:
