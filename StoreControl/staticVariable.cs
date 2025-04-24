@@ -8,6 +8,7 @@ namespace StoreControl
 {
     internal class staticVariable
     {
+
         public static string? lang = null;
         public static string folderPath = "";
         public static string[] langArray = new string[] { "en", "de" };
