@@ -1,0 +1,129 @@
+﻿using StoreControl.customers;
+using StoreControl.Database;
+using StoreControl.Json;
+using StoreControl.ListF;
+using StoreControl.LogIn;
+using StoreControl.ProductsF;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace StoreControl
+{
+    /// <summary>
+    /// Interaktionslogik für frameList.xaml
+    /// </summary>
+    public partial class frameList : Page
+    {
+        private MainWindow mainWindow;
+
+        private dataProcessL dpL;
+        private dataProcessJ dpJ;
+        public frameList()
+        {
+            InitializeComponent();
+            mainWindow = (MainWindow)Application.Current.MainWindow;
+           
+            dpJ ??= new dataProcessJ();
+           
+            this.Loaded += FrameList_Loaded;
+        }
+        private void FrameList_Loaded(object sender, RoutedEventArgs e)
+        {
+            dpL ??= new dataProcessL();
+            // get saved language
+            Lang lang = dpJ.getLang();
+            staticVariable.lang = lang.lang;
+            comboLang.SelectedItem = staticVariable.lang;
+        }
+
+        // buttons
+        private void logInB_Click(object sender, RoutedEventArgs e)
+        {
+            // if the frame is null, create a new one
+            object content = dataProcessM.frameNewOrExists(typeof(frameLogIn));
+            dataProcessM.frameMain(content);
+        }
+        private  void productsB_Click(object sender, RoutedEventArgs e)
+        {
+            // if the frame is null, create a new one
+            object content = dataProcessM.frameNewOrExists(typeof(frameProducts));
+            dataProcessM.frameMain(content);
+        }
+        private void customerB_Click(object sender, RoutedEventArgs e)
+        {
+            // if the frame is null, create a new one
+            object content = dataProcessM.frameNewOrExists(typeof(frameCustomers));
+            dataProcessM.frameMain(content);
+        }
+        private void logOutB_Click(object sender, RoutedEventArgs e)
+        {
+            // all frames empty
+            staticVariable.staticFC = null;
+            staticVariable.staticFP = null;
+            staticVariable.staticFL = null;
+            // clear all
+            staticVariable.currentUser = new User();
+            staticVariable.dpP!.allClear(true);
+            staticVariable.dpP!.dataGridClear();
+            dpL!.buttonsEnable(false);
+            // to login frame
+            object content = dataProcessM.frameNewOrExists(typeof(frameLogIn));
+            dataProcessM.frameMain(content);
+        }
+        private void exitB_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        //
+        private void comboLang_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboLang.SelectedItem.ToString() == "en")
+            {
+                staticVariable.lang = "en";
+            }
+            else if (comboLang.SelectedItem.ToString() == "de")
+            {
+                staticVariable.lang = "de";
+            }
+            // set the new language
+            try
+            {
+                using (var context = new MyDbContext())
+                {
+                    // cget from database translation only für configured frames
+                    bool productsActive = staticVariable.staticFP != null;
+                    bool logInActive = staticVariable.staticFL != null;
+
+                    List<Translation> translations = context.translation
+                    .Where(t =>
+                       staticVariable.keywordL.Contains(t.Key_word) ||
+                       (productsActive && staticVariable.keywordP.Contains(t.Key_word)) ||
+                       (logInActive && staticVariable.keywordLI.Contains(t.Key_word)))
+                       .ToList();
+
+                    if (productsActive) staticVariable.dpP!.setTranslation(translations);
+                    if (logInActive) staticVariable.dpLI!.setTranslation(translations);
+
+                    dpL.setTranslation(translations);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                // update saved language
+                dpJ.updateLang(staticVariable.lang);
+            }
+        }
+        
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            System.Windows.Size currentSizeMW = new System.Windows.Size(mainWindow.ActualWidth, mainWindow.ActualHeight);
+            mainWindow.resizeFP(currentSizeMW);
+        }
+
+    }
+}

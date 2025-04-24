@@ -17,8 +17,5 @@
         </Border>
 
         <Frame x:Name="frameMain" Grid.Column="1" NavigationUIVisibility="Hidden"/>
-        <Frame x:Name="frameProducts" Grid.Column="1" NavigationUIVisibility="Hidden"/>
-        <Frame x:Name="frameLogIn" Grid.Column="1" NavigationUIVisibility="Hidden"/>
-        <Frame x:Name="frameClients" Grid.Column="1" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

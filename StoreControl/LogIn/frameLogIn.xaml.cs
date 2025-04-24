@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Security.Cryptography;
 using StoreControl.Json;
 using Microsoft.EntityFrameworkCore;
+using StoreControl.ListF;
 
 namespace StoreControl.LogIn
 {
@@ -16,8 +17,8 @@ namespace StoreControl.LogIn
     {
 
         private MainWindow mainWindow;
-        private frameList? frameList;
         private dataProcessJ dpJ;
+        private dataProcessL? dpL;
         public frameLogIn()
         {
             InitializeComponent();
@@ -26,9 +27,9 @@ namespace StoreControl.LogIn
                 staticVariable.dpLI = new dataProcessLI(this);
 
             dpJ ??= new dataProcessJ();
+            dpL ??= new dataProcessL();
 
             mainWindow = (MainWindow)Application.Current.MainWindow;
-
             // translation of this frame
             if (Flags.isDatabaseConnected)
                 frameTranslation();
@@ -79,14 +80,9 @@ namespace StoreControl.LogIn
 
                     if (user != null)
                     {
-                        frameList = (frameList)mainWindow.frameList.Content;
                         staticVariable.currentUser = user;
-                        frameList.productsB.IsEnabled = true;
-                        frameList.customerB.IsEnabled = true;
-                        frameList.showFrameP();
-                        frameList.logInB.Visibility = Visibility.Hidden;
-                        frameList.productsB.Margin = new Thickness(frameList.productsB.Margin.Left, frameList.productsB.Margin.Top - 100, frameList.productsB.Margin.Right, frameList.productsB.Margin.Bottom);
-                        frameList.customerB.Margin = new Thickness(frameList.customerB.Margin.Left, frameList.customerB.Margin.Top - 100, frameList.customerB.Margin.Right, frameList.customerB.Margin.Bottom);
+                        dpL!.buttonsEnable(true);
+                       
                         // as jason save (data suggestion, and user reminder zeck)
                         dpJ.saveOrUpdateUser(user);
                         // 
@@ -104,6 +100,7 @@ namespace StoreControl.LogIn
                 }
             }
         }
+       
 
         private void userNameCB_Selected(object sender, RoutedEventArgs e)
         {

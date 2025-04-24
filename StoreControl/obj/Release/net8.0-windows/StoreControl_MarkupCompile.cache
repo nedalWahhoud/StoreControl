@@ -1,5 +1,5 @@
 ﻿StoreControl
-0.0.0.3
+0.0.0.4
 
 winexe
 C#
@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NET;NET8_0;NETCOREAPP
 C:\Users\nedal\source\repos\StoreControl\StoreControl\App.xaml
-51588798341
+5-1317470043
 
-24-2079999
+241437298435
 213-1340088629
-Clients\frameClients.xaml;ListF\frameList.xaml;LogIn\frameLogIn.xaml;MainWindow.xaml;ProductsF\frameProducts.xaml;
+customers\frameCustomers.xaml;List\frameList.xaml;LogIn\frameLogIn.xaml;MainWindow.xaml;Products\frameProducts.xaml;
 
 False
 

@@ -101,7 +101,7 @@ namespace StoreControl.LogIn {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/StoreControl;V0.0.0.3;component/login/framelogin.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/StoreControl;V0.0.0.4;component/login/framelogin.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\LogIn\frameLogIn.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
