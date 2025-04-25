@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace StoreControl.Database
 {
@@ -15,18 +9,35 @@ namespace StoreControl.Database
         public DbSet<Categories> categories { get; set; }
         public DbSet<User> users { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            string connectionString = "server=localhost;database=storecontrol;user=root;password=;";
             try
             {
-                ServerVersion serverVersion = ServerVersion.AutoDetect("server=localhost;database=storecontrol;user=root;password=;");
+                ServerVersion serverVersion = ServerVersion.AutoDetect(connectionString);
 
                 optionsBuilder.UseMySql("server=localhost;database=storecontrol;user=root;password=;", serverVersion);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}" + ex.Message);
-                Flags.isDatabaseConnected = false;
+            }
+        }
+        public static async Task<bool> CheckDatabaseConnection()
+        {
+            try
+            {
+                using (var context = new MyDbContext())
+                {
+                    await context.Database.OpenConnectionAsync(); 
+                    await context.Database.CloseConnectionAsync(); 
+                    return true;
+                }
+            }
+            catch
+            {
+                return false; 
             }
         }
     }

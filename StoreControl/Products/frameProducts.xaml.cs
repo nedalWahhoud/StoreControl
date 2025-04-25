@@ -16,29 +16,20 @@ namespace StoreControl
     public partial class frameProducts : Page
     {
         
-        private MainWindow mainWindow;
+        private dataProcessP? dpP;
         public frameProducts()
         {
             InitializeComponent();
 
-            mainWindow = (MainWindow)Application.Current.MainWindow;
-
-            staticVariable.dpP ??= new dataProcessP();
-            
+            dpP ??= new dataProcessP();
             // load completed
             this.Loaded += FrameProducts_Loaded;
         }
-
-        private void FrameProducts_Loaded(object sender, RoutedEventArgs e)
-        {
-            staticVariable.dpP!.mainProcess();
-            staticVariable.dpP!.setDefaultImage();
-            Page_SizeChanged(this, null!);
-        }
-
+       
+        // search
         private async void searchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            staticVariable.dpP!.allClear(true);
+            dpP!.allClear(true);
             Flags.isSearching = true;
             staticVariable.currentPageDG = 0;
             string keyWord = searchTB.Text?.ToLower()!;
@@ -49,14 +40,14 @@ namespace StoreControl
                 dataGrid.SelectedItem = null;
                 Keyboard.ClearFocus();
                 await Task.Delay(staticVariable.DebounceDelay);
-                staticVariable.dpP!.dataGridClear();
+                dpP!.dataGridClear();
                 await LoadMoreProductsAsync();
                 if (dataGrid.Items.Count > 0)
                     dataGrid.ScrollIntoView(dataGrid.Items[0]);
                 return;
             }
 
-            staticVariable.dpP!.dataGridClear();
+            dpP!.dataGridClear();
             
             await LoadMoreSearchedProductsAsync();
             
@@ -93,18 +84,18 @@ namespace StoreControl
                 // always with new selection the uploaded image is no longer necessary
                 Flags.isImageChanged = false;
 
-                productIdTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrder.Find(c => c == "productsId")!)?.GetValue(selectedItem)!.ToString();
-                productNameTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrder.Find(c => c == "productName")!)?.GetValue(selectedItem)!.ToString();
-                descriptionTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrder.Find(c => c == "description")!)?.GetValue(selectedItem)!.ToString();
+                productIdTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrderP.Find(c => c == "productsId")!)?.GetValue(selectedItem)!.ToString();
+                productNameTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrderP.Find(c => c == "productName")!)?.GetValue(selectedItem)!.ToString();
+                descriptionTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrderP.Find(c => c == "description")!)?.GetValue(selectedItem)!.ToString();
                 categoryCB.SelectedValue = (selectedItem.GetType().GetProperty("Category")?.GetValue(selectedItem) as Categories)!.categoriesId;
-                quantityTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrder.Find(c => c == "quantity")!)?.GetValue(selectedItem)!.ToString();
-                purchasePriceTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrder.Find(c => c == "purchasePrice")!)?.GetValue(selectedItem)!.ToString();
-                sellingPriceTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrder.Find(c => c == "sellingPrice")!)?.GetValue(selectedItem)!.ToString();
-                articleNumberTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrder.Find(c => c == "articleNumber")!)?.GetValue(selectedItem)!.ToString();
-                minimumStockTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrder.Find(c => c == "minimumStock")!)?.GetValue(selectedItem)!.ToString();
-                img.Source = staticVariable.dpP!.ConvertByteToImage((selectedItem.GetType().GetProperty(staticVariable.columnOrder.Find(c => c == "img")!)?.GetValue(selectedItem) as byte[])!);
+                quantityTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrderP.Find(c => c == "quantity")!)?.GetValue(selectedItem)!.ToString();
+                purchasePriceTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrderP.Find(c => c == "purchasePrice")!)?.GetValue(selectedItem)!.ToString();
+                sellingPriceTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrderP.Find(c => c == "sellingPrice")!)?.GetValue(selectedItem)!.ToString();
+                articleNumberTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrderP.Find(c => c == "articleNumber")!)?.GetValue(selectedItem)!.ToString();
+                minimumStockTB.Text = selectedItem.GetType().GetProperty(staticVariable.columnOrderP.Find(c => c == "minimumStock")!)?.GetValue(selectedItem)!.ToString();
+                img.Source = dpP!.ConvertByteToImage((selectedItem.GetType().GetProperty(staticVariable.columnOrderP.Find(c => c == "img")!)?.GetValue(selectedItem) as byte[])!);
                 // set current product
-                Products product = staticVariable.dpP!.getProduct(true,false)!;
+                Products product = dpP!.getProduct(true,false)!;
                 staticVariable.currentProduct = product;
             }
         }
@@ -115,30 +106,29 @@ namespace StoreControl
             string keyWord = searchTB.Text?.ToLower()!;
             if (!string.IsNullOrEmpty(keyWord))
             {
-                List<Products> searchedProducts = await staticVariable.dpP!.Search(keyWord, false);
+                List<Products> searchedProducts = await dpP!.Search(keyWord, false);
                 if (searchedProducts != null)
-                    staticVariable.dpP!.addItemsDG(searchedProducts, new boolInt(false, 0));
+                    dpP!.addItemsDG(searchedProducts, new boolInt(false, 0));
             }
             Flags.isLoadingDB = false;
         }
         public async Task LoadMoreProductsAsync()
         {
             Flags.isLoadingDB = true;
-            List<Products> task = await staticVariable.dpP!.LoadMoreProducts();
+            List<Products> task = await dpP!.LoadMoreProducts();
             if (task != null)
-                staticVariable.dpP!.addItemsDG(task, new boolInt(false, 0));
+                dpP!.addItemsDG(task, new boolInt(false, 0));
 
-            staticVariable.dpP!.checkDataDG(dataGrid);
+            dpP!.checkDataDG(dataGrid);
             Flags.isLoadingDB = false;
         }
-    
         // buttons
         private async void newB_Click(object sender, RoutedEventArgs e)
         {
             Flags.isSearching = false;
             Flags.isImageChanged = false;
 
-            if (!staticVariable.dpP!.checkTextbox())
+            if (!dpP!.checkTextbox())
             {
                 MessageBox.Show("Please fill all the fields.", "Missing Information", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -148,7 +138,7 @@ namespace StoreControl
             if (resault == MessageBoxResult.Yes)
             {
                 // without category for database
-                Products products = staticVariable.dpP!.getProduct(false,false)!;
+                Products products = dpP!.getProduct(false,false)!;
 
                 using (var context = new MyDbContext())
                 {
@@ -160,8 +150,8 @@ namespace StoreControl
                         
                         dataGrid.Items.Refresh();
                         searchTB.Clear();
-                        staticVariable.dpP!.allClear(true);
-                        staticVariable.dpP!.dataGridClear();
+                        dpP!.allClear(true);
+                        dpP!.dataGridClear();
                         await LoadMoreProductsAsync();
 
                         // scroll to the first item,
@@ -192,7 +182,7 @@ namespace StoreControl
                 {
                     try
                     {
-                        int productsId = int.Parse(dataGrid.SelectedItem.GetType().GetProperty(staticVariable.columnOrder.Find(c => c == "productsId")!)!.GetValue(dataGrid.SelectedItem)!.ToString()!);
+                        int productsId = int.Parse(dataGrid.SelectedItem.GetType().GetProperty(staticVariable.columnOrderP.Find(c => c == "productsId")!)!.GetValue(dataGrid.SelectedItem)!.ToString()!);
 
                         var result = MessageBox.Show("Do you want to delete this product?", "Delete Product", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (result == MessageBoxResult.Yes)
@@ -204,7 +194,7 @@ namespace StoreControl
                             context.SaveChanges();
 
                             searchTB.Clear();
-                            staticVariable.dpP!.allClear(true);
+                            dpP!.allClear(true);
                             // delete from datagrid
                             dataGrid.Items.Remove(dataGrid.SelectedItem);
                             // scroll to the first item,
@@ -226,16 +216,16 @@ namespace StoreControl
         private void editB_Click(object sender, RoutedEventArgs e)
         {
             // check if all textboxes are filled
-            if (!staticVariable.dpP!.checkTextbox() || dataGrid.SelectedItem == null)
+            if (!dpP!.checkTextbox() || dataGrid.SelectedItem == null)
             {
                 MessageBox.Show("Please fill all the fields or not selected.", "Missing Information", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             //
-            int productsId = int.Parse(dataGrid.SelectedItem!.GetType().GetProperty(staticVariable.columnOrder.Find(c => c == "productsId")!)!.GetValue(dataGrid.SelectedItem)!.ToString()!);
+            int productsId = int.Parse(dataGrid.SelectedItem!.GetType().GetProperty(staticVariable.columnOrderP.Find(c => c == "productsId")!)!.GetValue(dataGrid.SelectedItem)!.ToString()!);
             // Compare with the original values ​​of StaticVariable.currentProduct
-            Products products = staticVariable.dpP!.getProduct(true,false)!;
+            Products products = dpP!.getProduct(true,false)!;
             bool isProductNameChanged = staticVariable.currentProduct.productName != products.productName;
             bool isDescriptionChanged = staticVariable.currentProduct.description != products.description;
             bool isCategoryChanged = staticVariable.currentProduct.Category!.categoriesId != products.categoriesId;
@@ -244,7 +234,7 @@ namespace StoreControl
             bool isPurchasePriceChanged = staticVariable.currentProduct.purchasePrice != products.purchasePrice;
             bool isSellingPriceChanged = staticVariable.currentProduct.sellingPrice != products.sellingPrice;
             bool isMinimumStockChanged = staticVariable.currentProduct.minimumStock != products.minimumStock;
-            bool isImageChanged = staticVariable.dpP!.imageCompare();
+            bool isImageChanged = dpP!.imageCompare();
 
             // Check if any of the values have changed
             if (!isProductNameChanged && !isDescriptionChanged && !isCategoryChanged && !isArticleNumberChanged && !isQuantityChanged &&
@@ -305,7 +295,7 @@ namespace StoreControl
                                 selectedRow.isMinimumStock = selectedRow.quantity <= selectedRow.minimumStock;
                             }
                             if (isImageChanged) selectedRow.img = products.img;
-                            if (dataGrid.Columns[staticVariable.columnOrder.FindIndex(c => c == "category")] is DataGridComboBoxColumn comboColumn)
+                            if (dataGrid.Columns[staticVariable.columnOrderP.FindIndex(c => c == "category")] is DataGridComboBoxColumn comboColumn)
                             {
                                 comboColumn.ItemsSource = categoryCB.ItemsSource;
                             }
@@ -331,14 +321,14 @@ namespace StoreControl
                 // clear the datagrid, if searching than clear in searchchanged
                 if (!Flags.isSearching)
                 {
-                    staticVariable.dpP!.dataGridClear();
+                    dpP!.dataGridClear();
 
                     await LoadMoreProductsAsync();
                 }
             }
 
             searchTB.Clear();
-            staticVariable.dpP!.allClear(true);
+            dpP!.allClear(true);
             if (dataGrid.SelectedItem != null)
                 dataGrid.SelectedItem = null;
             // at clear the uploaded image is no longer necessary (for Compare image)
@@ -347,8 +337,8 @@ namespace StoreControl
         private async void minimumStockB_Click(object sender, RoutedEventArgs e)
         {
             Flags.minimumStockMode = true;
-            staticVariable.dpP!.allClear(true);
-            staticVariable.dpP!.dataGridClear();
+            dpP!.allClear(true);
+            dpP!.dataGridClear();
 
             await LoadMoreProductsAsync();
 
@@ -391,7 +381,7 @@ namespace StoreControl
                         // clear the textboxs
                         if (dataGrid.SelectedItem != null)
                         {
-                            staticVariable.dpP!.allClear(true);
+                            dpP!.allClear(true);
                             dataGrid.SelectedItem = null;
                         }
 
@@ -410,9 +400,9 @@ namespace StoreControl
                                 MessageBox.Show("Category added successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                             }
                             // Update the ComboBox with the new category
-                            staticVariable.dpP!.setCategoriesC();
+                            dpP!.setCategoriesC();
                             // update the COmboBoxColmun in datagrid
-                            if (dataGrid.Columns[staticVariable.columnOrder.FindIndex(c => c == "category")] is DataGridComboBoxColumn comboColumn)
+                            if (dataGrid.Columns[staticVariable.columnOrderP.FindIndex(c => c == "category")] is DataGridComboBoxColumn comboColumn)
                             {
                                 comboColumn.ItemsSource = categoryCB.ItemsSource;
                                 dataGrid.Items.Refresh();   
@@ -441,7 +431,7 @@ namespace StoreControl
                     // clear the textboxs
                     if (dataGrid.SelectedItem != null)
                     {
-                        staticVariable.dpP!.allClear(false);
+                        dpP!.allClear(false);
                         dataGrid.SelectedItem = null;
                     }
                     try
@@ -461,7 +451,7 @@ namespace StoreControl
                                         context.categories.Remove(category);
                                         context.SaveChanges();
                                         MessageBox.Show("Category deleted successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                                        staticVariable.dpP!.setCategoriesC();
+                                        dpP!.setCategoriesC();
                                         // clearn focus so that selectedindex of categoryCB works
                                         Keyboard.ClearFocus();
                                     }
@@ -540,8 +530,16 @@ namespace StoreControl
         }
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
             System.Windows.Size currentSizeMW = new System.Windows.Size(mainWindow.ActualWidth, mainWindow.ActualHeight);
             mainWindow.resizeFP(currentSizeMW);
+        }
+        private void FrameProducts_Loaded(object sender, RoutedEventArgs e)
+        {
+            dpP ??= new dataProcessP();
+            dpP!.firstProcess();
+            dpP!.setDefaultImage();
+            Page_SizeChanged(this, null!);
         }
     }
 }

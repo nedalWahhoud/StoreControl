@@ -17,20 +17,25 @@ namespace StoreControl
     {
         private MainWindow mainWindow;
 
-        private dataProcessL dpL;
-        private dataProcessJ dpJ;
+        private dataProcessL? dpL;
+        private dataProcessJ? dpJ;
+        private dataProcessC? dpC;
+        private dataProcessP? dpP;
+        private dataProcessLI? dpLI;
         public frameList()
         {
             InitializeComponent();
             mainWindow = (MainWindow)Application.Current.MainWindow;
-           
-            dpJ ??= new dataProcessJ();
-           
             this.Loaded += FrameList_Loaded;
         }
         private void FrameList_Loaded(object sender, RoutedEventArgs e)
         {
             dpL ??= new dataProcessL();
+            dpJ ??= new dataProcessJ();
+            dpC ??= new dataProcessC();
+            dpP ??= new dataProcessP();
+            dpLI ??= new dataProcessLI();
+
             // get saved language
             Lang lang = dpJ.getLang();
             staticVariable.lang = lang.lang;
@@ -64,8 +69,8 @@ namespace StoreControl
             staticVariable.staticFL = null;
             // clear all
             staticVariable.currentUser = new User();
-            staticVariable.dpP!.allClear(true);
-            staticVariable.dpP!.dataGridClear();
+            dpP!.allClear(true);
+            dpP!.dataGridClear();
             dpL!.buttonsEnable(false);
             // to login frame
             object content = dataProcessM.frameNewOrExists(typeof(frameLogIn));
@@ -94,18 +99,22 @@ namespace StoreControl
                     // cget from database translation only für configured frames
                     bool productsActive = staticVariable.staticFP != null;
                     bool logInActive = staticVariable.staticFL != null;
+                    bool customerActive = staticVariable.staticFC != null;
 
                     List<Translation> translations = context.translation
                     .Where(t =>
                        staticVariable.keywordL.Contains(t.Key_word) ||
                        (productsActive && staticVariable.keywordP.Contains(t.Key_word)) ||
-                       (logInActive && staticVariable.keywordLI.Contains(t.Key_word)))
+                       (logInActive && staticVariable.keywordLI.Contains(t.Key_word)) ||
+                       (customerActive && staticVariable.keywordC.Contains(t.Key_word))
+                       )
                        .ToList();
 
-                    if (productsActive) staticVariable.dpP!.setTranslation(translations);
-                    if (logInActive) staticVariable.dpLI!.setTranslation(translations);
+                    if (productsActive) dpP!.setTranslation(translations);
+                    if (logInActive) dpLI!.setTranslation(translations);
+                    if (customerActive) dpC!.setTranslation(translations);
 
-                    dpL.setTranslation(translations);
+                    dpL!.setTranslation(translations);
                 }
             }
             catch (Exception ex)
@@ -115,7 +124,7 @@ namespace StoreControl
             finally
             {
                 // update saved language
-                dpJ.updateLang(staticVariable.lang);
+                dpJ!.updateLang(staticVariable.lang);
             }
         }
         

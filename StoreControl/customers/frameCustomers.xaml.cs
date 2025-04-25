@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StoreControl.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,28 @@ namespace StoreControl.customers
     /// </summary>
     public partial class frameCustomers : Page
     {
+        private dataProcessC? dpC;
         public frameCustomers()
         {
             InitializeComponent();
+
+            dpC ??= new dataProcessC();
+            
+            this.Loaded += FrameCustomers_Loaded;
+        }
+        // datagrid
+        private void dataGrid_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            LoadMoreDataAsync();
+        }
+        private void LoadMoreDataAsync()
+        {
+            // check if dataGrid is empty
+            dpC!.checkDataDG(dataGrid);
+        }
+        private void FrameCustomers_Loaded(object sender, RoutedEventArgs e)
+        {
+            dpC!.firstProcess();
         }
     }
 }

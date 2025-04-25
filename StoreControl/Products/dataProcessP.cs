@@ -17,12 +17,8 @@ namespace StoreControl.ProductsF
             // 
             getAllPath();
         }
-        public void setDefaultImage()
-        {
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "defaultImage.jpg");
-            staticVariable.staticFP!.img.Source = new BitmapImage(new Uri(path));
-        }
-        public void mainProcess()
+    
+        public void firstProcess()
         {
             if (staticVariable.staticFP!.dataGrid.Columns.Count == 0)
             {
@@ -192,7 +188,7 @@ namespace StoreControl.ProductsF
                         Application.Current.Dispatcher.Invoke(() =>
                         {
                             // Set ItemsSource für ComboBox
-                            if (staticVariable.staticFP.dataGrid.Columns[staticVariable.columnOrder.FindIndex(c => c == "category")] is DataGridComboBoxColumn comboColumn)
+                            if (staticVariable.staticFP.dataGrid.Columns[staticVariable.columnOrderP.FindIndex(c => c == "category")] is DataGridComboBoxColumn comboColumn)
                             {
                                 comboColumn.ItemsSource = usedCategoriesDB;
                             }
@@ -213,6 +209,7 @@ namespace StoreControl.ProductsF
             }
             return products1;
         }
+        // datagrid
         public void checkDataDG(DataGrid dataGrid)
         {
             if (dataGrid.Items.Count == 0)
@@ -226,7 +223,6 @@ namespace StoreControl.ProductsF
                 staticVariable.staticFP!.NoDataText.Visibility = Visibility.Collapsed;
             }
         }
-
         public void addItemsDG(List<Products> products, boolInt ifInsert)
         {
             int existingCount = staticVariable.staticFP!.dataGrid.Items.Count;
@@ -265,9 +261,9 @@ namespace StoreControl.ProductsF
         public void addColumnsDG(List<(string, string)> translateds)
         {
             // dataGrid sorting 
-            List<(string, string)> sortedTranslateds = translateds
-                .Where(x => staticVariable.columnOrder.Any(co => co == x.Item1))
-                .OrderBy(x => staticVariable.columnOrder.FindIndex(co => co == x.Item1))
+            List<(string, string)> sortedColmuns = translateds
+                .Where(x => staticVariable.columnOrderP.Any(co => co == x.Item1))
+                .OrderBy(x => staticVariable.columnOrderP.FindIndex(co => co == x.Item1))
                 .ToList();
 
             // add Columns
@@ -277,7 +273,7 @@ namespace StoreControl.ProductsF
                 double columnWidthC = 50;
                 double rowHeight = 100;
                 //
-                foreach ((string, string) st in sortedTranslateds)
+                foreach ((string, string) st in sortedColmuns)
                 {
                     if(st.Item1 == "rowIndex")
                         columnWidth = columnWidthC;
@@ -358,6 +354,7 @@ namespace StoreControl.ProductsF
                 staticVariable.staticFP.dataGrid.Width = totalWidth;
             }
         }
+        // search
         public async Task<List<Products>> Search(string keyWord, bool exactSearch)
         {
             List<Products> products = new List<Products>();
@@ -402,7 +399,7 @@ namespace StoreControl.ProductsF
                             .ToList();
 
                         // Set ItemsSource für ComboBox
-                        if (staticVariable.staticFP.dataGrid.Columns[staticVariable.columnOrder.FindIndex(c => c == "category")] is DataGridComboBoxColumn comboColumn)
+                        if (staticVariable.staticFP.dataGrid.Columns[staticVariable.columnOrderP.FindIndex(c => c == "category")] is DataGridComboBoxColumn comboColumn)
                         {
                             comboColumn.ItemsSource = usedCategoriesDB;
                         }
@@ -422,7 +419,7 @@ namespace StoreControl.ProductsF
 
             }
         }
-       
+        // image
         public BitmapImage? ConvertByteToImage(byte[] byteArray)
         {
             if (byteArray == null || byteArray.Length == 0)
@@ -464,6 +461,11 @@ namespace StoreControl.ProductsF
                 return ms.ToArray();
             }
         }
+        public void setDefaultImage()
+        {
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "defaultImage.jpg");
+            staticVariable.staticFP!.img.Source = new BitmapImage(new Uri(path));
+        }
         public bool imageCompare()
         {
             bool isImageChanged = Flags.isImageChanged == true;
@@ -472,6 +474,7 @@ namespace StoreControl.ProductsF
 
             return isImageChanged;
         }
+        // clear
         public void allClear(bool withCategory)
         {
             if (staticVariable.staticFP != null)

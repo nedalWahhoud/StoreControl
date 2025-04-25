@@ -10,9 +10,9 @@ namespace StoreControl
     {
         public dataProcessM()
         {
-           
+
         }
-        public static async Task<bool> CheckInternetAsync()
+        /*private static async Task<bool> CheckInternetAsync1()
         {
             try
             {
@@ -31,7 +31,7 @@ namespace StoreControl
             {
                 return false;
             }
-        }
+        }*/
         public static void frameMain(object frame)
         {
             MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
@@ -45,8 +45,8 @@ namespace StoreControl
                 case Type t when t == typeof(frameLogIn):
                     if (staticVariable.staticFL == null)
                     {
-                        content = new frameLogIn();
-                        staticVariable.staticFL = (frameLogIn)content;
+                        staticVariable.staticFL = new frameLogIn();
+                        content = staticVariable.staticFL;
                     }
                     else
                         content = staticVariable.staticFL;
@@ -54,8 +54,8 @@ namespace StoreControl
                 case Type t when t == typeof(frameProducts):
                     if (staticVariable.staticFP == null)
                     {
-                        content = new frameProducts();
-                        staticVariable.staticFP = (frameProducts)content;
+                        staticVariable.staticFP = new frameProducts();
+                        content = staticVariable.staticFP;
                     }
                     else
                         content = staticVariable.staticFP;
@@ -63,8 +63,8 @@ namespace StoreControl
                 case Type t when t == typeof(frameCustomers):
                     if (staticVariable.staticFC == null)
                     {
-                        content = new frameCustomers();
-                        staticVariable.staticFC = (frameCustomers)content;
+                        staticVariable.staticFC = new frameCustomers();
+                        content = staticVariable.staticFC;
                     }
                     else
                         content = staticVariable.staticFC;
@@ -73,5 +73,6 @@ namespace StoreControl
 
             return content!;
         }
+      
     }
 }

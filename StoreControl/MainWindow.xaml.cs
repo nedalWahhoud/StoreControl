@@ -12,15 +12,45 @@ namespace StoreControl
     {
         public MainWindow()
         {
+            // check database connection
+            dataConnectionAsyne();
+
             InitializeComponent();
-            // 
-            staticVariable.staticFLi = new frameList();
-            frameList.Content = staticVariable.staticFLi;
-            
-            // if the frame is null, create a new one
-            object content = dataProcessM.frameNewOrExists(typeof(frameLogIn));
-            dataProcessM.frameMain(content);
+
+            this.Loaded += MainWindow_Loaded;
         }
+
+        private async void dataConnectionAsyne()
+        {
+            int counter = 0;
+            const int maxRetries = 3;
+            bool bo = false;
+            while (true)
+            {
+                bo = await Database.MyDbContext.CheckDatabaseConnection();
+                if (bo)
+                    break;
+                if (counter >= maxRetries)
+                    break;
+                counter++;
+            }
+            Flags.isDatabaseConnected = bo;
+        }
+        private  void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Flags.isDatabaseConnected)
+            {
+                staticVariable.staticFLI = new frameList();
+                frameList.Content = staticVariable.staticFLI;
+
+                // if the frame is null, create a new one
+                object content = dataProcessM.frameNewOrExists(typeof(frameLogIn));
+                dataProcessM.frameMain(content);
+            }
+            else
+                noDatabase.Visibility = Visibility.Visible;
+        }
+
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             System.Windows.Size currentSizeMW = new System.Windows.Size(this.ActualWidth, this.ActualHeight);
@@ -41,7 +71,7 @@ namespace StoreControl
                     // get mainWindows size
                     double sizeMwWidth = s.Width;
                     // get frameList size
-                    double sizeFlWidth = staticVariable.staticFLi!.ActualWidth;
+                    double sizeFlWidth = staticVariable.staticFLI!.ActualWidth;
                     // get frameProducts size
                     double sizeFpWidth = this.ActualWidth;
                     // set new frameProducts size
@@ -82,12 +112,12 @@ namespace StoreControl
             }
             
 
-            if (staticVariable.staticFLi != null)
+            if (staticVariable.staticFLI != null)
             {
                 // logOut button
-                staticVariable.staticFLi.logOutB.Margin = new Thickness(21, s.Height - 200, 0, 0);
+                staticVariable.staticFLI.logOutB.Margin = new Thickness(21, s.Height - 200, 0, 0);
                 // exit button
-                staticVariable.staticFLi.exitB.Margin = new Thickness(21, s.Height - 100, 0, 0);
+                staticVariable.staticFLI.exitB.Margin = new Thickness(21, s.Height - 100, 0, 0);
             }
 
             Flags.isResizeFP = false;

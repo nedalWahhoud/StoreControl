@@ -15,7 +15,13 @@
         <Border Grid.Column="0"  BorderBrush="#FFFFD700" BorderThickness="0,0,1,0" >
             <Frame x:Name="frameList" NavigationUIVisibility="Hidden" Margin="0,0,0,-4" />
         </Border>
-
         <Frame x:Name="frameMain" Grid.Column="1" NavigationUIVisibility="Hidden"/>
+        <TextBlock Grid.Column ="1"  x:Name="noDatabase"
+           Text="No Access to database"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"
+           FontSize="16"
+           Foreground="Gray"
+           Visibility="Hidden"/>
     </Grid>
 </Window>

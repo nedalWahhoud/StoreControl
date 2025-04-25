@@ -15,52 +15,23 @@ namespace StoreControl.LogIn
     /// </summary>
     public partial class frameLogIn : Page
     {
-
-        private MainWindow mainWindow;
         private dataProcessJ dpJ;
         private dataProcessL? dpL;
+        private dataProcessLI dpLI;
         public frameLogIn()
         {
             InitializeComponent();
 
-            if (staticVariable.dpLI == null)
-                staticVariable.dpLI = new dataProcessLI(this);
-
+            dpLI ??= new dataProcessLI();
             dpJ ??= new dataProcessJ();
             dpL ??= new dataProcessL();
 
-            mainWindow = (MainWindow)Application.Current.MainWindow;
-            // translation of this frame
-            if (Flags.isDatabaseConnected)
-                frameTranslation();
+            this.Loaded += FrameLogIn_Loaded;
         }
 
-        private  void frameTranslation()
+       
+        private void logInB_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                using (var context = new MyDbContext())
-                {
-                    List<Translation> translations =  context.translation
-                        .Where(t => staticVariable.keywordLI.Contains(t.Key_word))
-                        .ToList();
-                    staticVariable.dpLI!.setTranslation(translations);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private async void logInB_Click(object sender, RoutedEventArgs e)
-        {
-            if (!await dataProcessM.CheckInternetAsync())
-            {
-                MessageBox.Show("No internet connection. Please check your connection and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
             using (var context = new MyDbContext())
             {
                 try
@@ -85,8 +56,6 @@ namespace StoreControl.LogIn
                        
                         // as jason save (data suggestion, and user reminder zeck)
                         dpJ.saveOrUpdateUser(user);
-                        // 
-                        Flags.isDatabaseConnected = true;
                     }
                     else
                     {
@@ -101,7 +70,6 @@ namespace StoreControl.LogIn
             }
         }
        
-
         private void userNameCB_Selected(object sender, RoutedEventArgs e)
         {
             userNameCB.Text = userNameCB.SelectedItem.ToString()!;
@@ -162,6 +130,10 @@ namespace StoreControl.LogIn
                     userNameCB.IsDropDownOpen = usersData.Users.Any();
                 }
             }
+        }
+        private void FrameLogIn_Loaded(object sender, RoutedEventArgs e)
+        {
+            dpLI.firstProcess();
         }
     }
 }

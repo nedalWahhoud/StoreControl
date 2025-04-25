@@ -5,16 +5,157 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:StoreControl.customers"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="900" d:DesignWidth="1620"
       Title="frameCustomers">
-
+    <Page.Resources>
+        <!-- color -->
+        <SolidColorBrush x:Key="goldC" Color="#FFFFD700"/>
+        <SolidColorBrush x:Key="grayC" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="darkGrayC" Color="#FF2C2C2C"/>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource grayC}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{StaticResource darkGrayC}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource grayC}"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                     CornerRadius="4"
+                     BorderThickness="{TemplateBinding BorderThickness}"
+                     BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource goldC}"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="BorderBrush" Value="{StaticResource darkGrayC}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource goldC}"/>
+                                <Setter Property="BorderBrush" Value="{StaticResource darkGrayC}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource darkGrayC}"/>
+            <Setter Property="Foreground" Value="{StaticResource grayC}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource grayC}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border 
+                  Name="border" 
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource goldC}"/>
+                                <!-- Gold -->
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="{StaticResource grayC}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="{StaticResource darkGrayC}" />
+            <Setter Property="Foreground" Value="{StaticResource grayC}" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="RowBackground" Value="#FF3A3A3A" />
+            <Setter Property="AlternatingRowBackground" Value="{StaticResource darkGrayC}" />
+            <Setter Property="GridLinesVisibility" Value="None" />
+            <Setter Property="HeadersVisibility" Value="Column" />
+            <Setter Property="BorderBrush" Value="{StaticResource grayC}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="RowHeaderWidth" Value="0" />
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource darkGrayC}" />
+            <Setter Property="Foreground" Value="{StaticResource grayC}" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Setter Property="BorderBrush" Value="{StaticResource grayC}" />
+        </Style>
+        <Style TargetType="ScrollBar">
+            <Setter Property="Background" Value="{StaticResource darkGrayC}"/>
+            <Setter Property="Foreground" Value="{StaticResource darkGrayC}"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Track Name="PART_Track" IsDirectionReversed="true">
+                                <Track.Thumb>
+                                    <Thumb Background="{StaticResource goldC}" />
+                                    <!-- Gold Thumb -->
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid x:Name="gridC" Background="#FF2C2C2C">
-        <TextBlock x:Name="NoDataText"
-                   Text="We are working on this."
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="16"
-                   Foreground="Gray"
-        Visibility="Visible"/>
+        <!-- customer -->
+        <Label x:Name="customerId" Content="customerId" HorizontalAlignment="Left" Margin="9,14,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="customerIdTB" HorizontalAlignment="Left" Margin="131,14,0,0" IsReadOnly="True" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" Height="30" Background="#C4C4C4" Foreground="#000000"/>
+        <Label x:Name="firstName" Content="firstName" HorizontalAlignment="Left" Margin="9,64,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="firstNameTB" HorizontalAlignment="Left" Margin="131,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="30"/>
+        <Label x:Name="lastName" Content="lastName" HorizontalAlignment="Left" Margin="9,114,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="lastNameTB" HorizontalAlignment="Left" Margin="131,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="30"/>
+        <Label x:Name="phone" Content="phone" HorizontalAlignment="Left" Margin="9,164,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="phoneTB" HorizontalAlignment="Left" Margin="131,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="30"/>
+        <Label x:Name="email" Content="email" HorizontalAlignment="Left" Margin="9,214,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="emailTB" HorizontalAlignment="Left" Margin="131,214,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="30"/>
+        <!-- address -->
+        <Label x:Name="street" Content="street" HorizontalAlignment="Left" Margin="710,64,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="streetTB" HorizontalAlignment="Left" Margin="810,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="30"/>
+        <TextBox x:Name="houseNummerTB" HorizontalAlignment="Left" Margin="1110,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="30"/>
+        <Label x:Name="cityLabel" Content="city" HorizontalAlignment="Left" Margin="710,114,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="cityTB" HorizontalAlignment="Left" Margin="810,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Height="30"/>
+        <TextBox x:Name="postalCodeTB" HorizontalAlignment="Left" Margin="970,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Height="30"/>
+        <TextBox x:Name="countryTB" HorizontalAlignment="Left" Margin="1110,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="30"/>
+        <Label x:Name="latitude" Content="latitude" HorizontalAlignment="Left" Margin="710,164,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="latitudeTB" HorizontalAlignment="Left" Margin="810,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="30"/>
+        <Label x:Name="longitude" Content="longitude" HorizontalAlignment="Left" Margin="710,214,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="longitudeTB" HorizontalAlignment="Left" Margin="810,214,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="30"/>
+        <DataGrid x:Name="dataGrid" HorizontalScrollBarVisibility="Auto"  IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns="False" Width="27" Margin="7,369,0,9" RenderTransformOrigin="0.5,0.5" SelectionMode="Single"
+                  ScrollViewer.ScrollChanged="dataGrid_ScrollChanged">
+            <DataGrid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.188"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </DataGrid.RenderTransform>
+        </DataGrid>
+        <TextBlock x:Name="NoDataText"  Text="No data available" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Foreground="Gray" Visibility="Collapsed"/>
     </Grid>
 </Page>
