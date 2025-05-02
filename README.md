@@ -20,7 +20,7 @@ Planned features for upcoming versions of the program include:
 - 🧾 Development of a custom point-of-sale (POS) system with support for USB barcode scanners, which will:
          </br>Automatically update stock quantity during the sales process
          </br>Automatically add new products to the system if an unknown product is scanned
-- 📇 Management of customer data and addresses to make product delivery more efficient
+- 📦 An ordering area is being planned to make product delivery more efficient
 - 🛠️ Fixing bugs and improving overall stability
 - 🚀 Further optimizations and new features based on real-world use in the store
 # 🗄️ Database
