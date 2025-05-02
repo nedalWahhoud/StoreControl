@@ -6,12 +6,33 @@
       xmlns:local="clr-namespace:StoreControl.customers"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1620"
+      SizeChanged="Page_SizeChanged"
       Title="frameCustomers">
     <Page.Resources>
         <!-- color -->
         <SolidColorBrush x:Key="goldC" Color="#FFFFD700"/>
         <SolidColorBrush x:Key="grayC" Color="#FFDDDDDD"/>
         <SolidColorBrush x:Key="darkGrayC" Color="#FF2C2C2C"/>
+        <TextBlock x:Key="WatermarkTextBlock" Text="Suchwort" Foreground="Black" />
+        <Style x:Name="WatermarkTextBox" x:Key="WatermarkTextBox" TargetType="TextBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Foreground" Value="{StaticResource grayC}"/>
+            <Setter Property="Background" Value="{StaticResource darkGrayC}"/>
+            <Style.Resources>
+                <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                    <VisualBrush.Visual>
+                        <Label Content="{Binding Source={StaticResource WatermarkTextBlock}, Path=Text}" Foreground="{StaticResource grayC}" Padding="4,0,0,0"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Style.Resources>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                    <Setter Property="Background" Value="{DynamicResource CueBannerBrush}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="{StaticResource grayC}"/>
             <Setter Property="FontSize" Value="14"/>
@@ -138,15 +159,24 @@
         <TextBox x:Name="streetTB" HorizontalAlignment="Left" Margin="810,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="30"/>
         <TextBox x:Name="houseNummerTB" HorizontalAlignment="Left" Margin="1110,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="30"/>
         <Label x:Name="cityLabel" Content="city" HorizontalAlignment="Left" Margin="710,114,0,0" VerticalAlignment="Top" />
-        <TextBox x:Name="cityTB" HorizontalAlignment="Left" Margin="810,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Height="30"/>
-        <TextBox x:Name="postalCodeTB" HorizontalAlignment="Left" Margin="970,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Height="30"/>
+        <TextBox x:Name="postalCodeTB" HorizontalAlignment="Left" Margin="810,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Height="30" PreviewTextInput="postalCodeTB_PreviewTextInput" DataObject.Pasting="postalCodeTB_Pasting"/>
+        <TextBox x:Name="cityTB" HorizontalAlignment="Left" Margin="970,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Height="30"/>
         <TextBox x:Name="countryTB" HorizontalAlignment="Left" Margin="1110,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="30"/>
         <Label x:Name="latitude" Content="latitude" HorizontalAlignment="Left" Margin="710,164,0,0" VerticalAlignment="Top" />
-        <TextBox x:Name="latitudeTB" HorizontalAlignment="Left" Margin="810,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="30"/>
+        <TextBox x:Name="latitudeTB" HorizontalAlignment="Left" Margin="810,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="30" PreviewTextInput="latitudeTB_PreviewTextInput" DataObject.Pasting="latitudeTB_Pasting" />
         <Label x:Name="longitude" Content="longitude" HorizontalAlignment="Left" Margin="710,214,0,0" VerticalAlignment="Top" />
-        <TextBox x:Name="longitudeTB" HorizontalAlignment="Left" Margin="810,214,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="30"/>
-        <DataGrid x:Name="dataGrid" HorizontalScrollBarVisibility="Auto"  IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns="False" Width="27" Margin="7,369,0,9" RenderTransformOrigin="0.5,0.5" SelectionMode="Single"
-                  ScrollViewer.ScrollChanged="dataGrid_ScrollChanged">
+        <TextBox x:Name="longitudeTB" HorizontalAlignment="Left" Margin="810,214,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="30" PreviewTextInput="longitudeTB_PreviewTextInput" DataObject.Pasting="longitudeTB_Pasting" />
+        <!-- buttons -->
+        <Button x:Name="newB" Content="newB" HorizontalAlignment="Left" Margin="300,284,0,0" VerticalAlignment="Top" Height="49" Width="115" Click="newB_Click"/>
+        <Button x:Name="editB" Content="editB" HorizontalAlignment="Left" Margin="500,284,0,0" VerticalAlignment="Top" Height="49" Width="115" Click="editB_Click" />
+        <Button x:Name="deleteB" Content="deleteB" HorizontalAlignment="Left" Margin="700,284,0,0" VerticalAlignment="Top" Height="49" Width="115" Click="deleteB_Click" />
+        <Button x:Name="clearB" Content="clearB" HorizontalAlignment="Left" Margin="900,284,0,0" VerticalAlignment="Top" Height="49" Width="115" Click="clearB_Click" />
+        <!-- search -->
+        <TextBox x:Name="searchTB" HorizontalAlignment="Left" Margin="1110,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322" Height="28" TextChanged="searchTB_TextChanged" Style="{StaticResource WatermarkTextBox}" />
+        <Button x:Name="xSearching" Content="X" HorizontalAlignment="Left" Margin="1391,296,0,0" VerticalAlignment="Top" Height="26" Width="40" BorderThickness="0,0,0,0" Click="xSearching_Click"/>
+        <!-- datagrid -->
+        <DataGrid x:Name="dataGrid" HorizontalScrollBarVisibility="Auto"  IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns="False" Width="27" Margin="7,356,0,9" RenderTransformOrigin="0.5,0.5" SelectionMode="Single"
+                  ScrollViewer.ScrollChanged="dataGrid_ScrollChanged" SelectionChanged="dataGrid_SelectionChanged" >
             <DataGrid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

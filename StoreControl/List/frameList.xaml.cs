@@ -63,15 +63,25 @@ namespace StoreControl
         }
         private void logOutB_Click(object sender, RoutedEventArgs e)
         {
+            // clear all
+            staticVariable.currentUser = new User();
+            dpL!.buttonsEnable(false);
+            // products
+            if (staticVariable.staticFP != null)
+            {
+                dpP!.allClear(true, true);
+                dpP!.dataGridClear();
+            }
+            // custimers
+            if (staticVariable.staticFC != null)
+            {
+                dpC!.allClear(true);
+                dpC!.dataGridClear();
+            }
             // all frames empty
             staticVariable.staticFC = null;
             staticVariable.staticFP = null;
             staticVariable.staticFL = null;
-            // clear all
-            staticVariable.currentUser = new User();
-            dpP!.allClear(true);
-            dpP!.dataGridClear();
-            dpL!.buttonsEnable(false);
             // to login frame
             object content = dataProcessM.frameNewOrExists(typeof(frameLogIn));
             dataProcessM.frameMain(content);

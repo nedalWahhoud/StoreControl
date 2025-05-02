@@ -1,4 +1,6 @@
-﻿using StoreControl.LogIn;
+﻿using Mysqlx.Notice;
+using StoreControl.customers;
+using StoreControl.LogIn;
 using System.Runtime.Intrinsics.Arm;
 using System.Windows;
 using System.Windows.Controls;
@@ -59,21 +61,34 @@ namespace StoreControl
         }
         public void resizeFP(System.Windows.Size s)
         {
-            if (staticVariable.staticFP != null && !Flags.isResizeFP)
+            // width of the complete main window
+            double mainDefaultWidth = 1770;
+            // get current mainWindows size
+            double sizeMwWidth = s.Width;
+
+            double sizeFlWidth = 0;
+            // frame list
+            if (staticVariable.staticFLI != null)
+            {
+                // logOut button
+                staticVariable.staticFLI.logOutB.Margin = new Thickness(21, s.Height - 200, 0, 0);
+                // exit button
+                staticVariable.staticFLI.exitB.Margin = new Thickness(21, s.Height - 100, 0, 0);
+                // get frameList size
+                sizeFlWidth = staticVariable.staticFLI!.ActualWidth;
+            }
+
+
+            // Products frame
+            if (staticVariable.staticFP != null && !Flags.isResizeFP && frameMain.Content == staticVariable.staticFP)
             {
                 if (staticVariable.staticFP.IsLoaded)
                 {
                     Flags.isResizeFP = true;
 
-                    double mainDefaultWidth = 1770;
+                    sizeFlWidth = staticVariable.staticFLI!.ActualWidth;
                     var fp = (frameProducts)frameMain.Content;
-
-                    // get mainWindows size
-                    double sizeMwWidth = s.Width;
-                    // get frameList size
-                    double sizeFlWidth = staticVariable.staticFLI!.ActualWidth;
-                    // get frameProducts size
-                    double sizeFpWidth = this.ActualWidth;
+                    
                     // set new frameProducts size
                     double newFpWidth = sizeMwWidth - sizeFlWidth - 20;
 
@@ -110,15 +125,39 @@ namespace StoreControl
                     fp.img.Height = imgDefaultHeight;
                 }
             }
-            
-
-            if (staticVariable.staticFLI != null)
+            // Customer frame
+            if (staticVariable.staticFC != null && !Flags.isResizeFP && frameMain.Content == staticVariable.staticFC)
             {
-                // logOut button
-                staticVariable.staticFLI.logOutB.Margin = new Thickness(21, s.Height - 200, 0, 0);
-                // exit button
-                staticVariable.staticFLI.exitB.Margin = new Thickness(21, s.Height - 100, 0, 0);
+                if(staticVariable.staticFC.IsLoaded)
+                {
+                    Flags.isResizeFP = true;
+                    var fc = (frameCustomers)frameMain.Content;
+                    // set new frame Customer size
+                    double newFpWidth = sizeMwWidth - sizeFlWidth - 20;
+
+                    fc.Width = newFpWidth;
+                    gridMW.ColumnDefinitions[1].Width = new GridLength(newFpWidth);
+                    // set the new size of the datagrid
+                    fc.dataGrid.Width = newFpWidth - 35;
+                    // set the new size of the Column od datagrid
+                    double columnWidth = (newFpWidth - 75) / 12;
+                    fc.dataGrid.Columns[0].Width = columnWidth;
+                    fc.dataGrid.Columns[1].Width = columnWidth;
+                    fc.dataGrid.Columns[2].Width = columnWidth;
+                    fc.dataGrid.Columns[3].Width = columnWidth;
+                    fc.dataGrid.Columns[4].Width = columnWidth;
+                    fc.dataGrid.Columns[5].Width = columnWidth;
+                    fc.dataGrid.Columns[6].Width = columnWidth;
+                    fc.dataGrid.Columns[7].Width = columnWidth;
+                    fc.dataGrid.Columns[8].Width = columnWidth;
+                    fc.dataGrid.Columns[9].Width = columnWidth;
+                    fc.dataGrid.Columns[10].Width = columnWidth;
+                    fc.dataGrid.Columns[11].Width = columnWidth;
+                }
+                Flags.isResizeFP = true;
             }
+
+            
 
             Flags.isResizeFP = false;
         }

@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Diagnostics.Eventing.Reader;
 
 namespace StoreControl.ProductsF
 {
@@ -149,13 +150,12 @@ namespace StoreControl.ProductsF
         }
         public async Task<List<Products>> LoadMoreProducts()
         {
-            if (Flags.allProductsLoadedDB) return null!;
-            
+            if (Flags.allProductsLoadedDB) return new List<Products>();
 
             List<Products> products1 = new List<Products>();
-            using (var context = new MyDbContext())
+            try
             {
-                try
+                using (var context = new MyDbContext())
                 {
                     var query = context.products
                      .Include(p => p.Category)
@@ -173,7 +173,7 @@ namespace StoreControl.ProductsF
                     if (products.Count == 0)
                     {
                         Flags.allProductsLoadedDB = true;
-                        return null!;
+                        return products!;
                     }
                     // 👇 Make the category list only ONCE
                     if (staticVariable.staticFP!.dataGrid.Items.Count == 0)
@@ -196,16 +196,15 @@ namespace StoreControl.ProductsF
                     }
                     products1 = products;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return null!;
-                }
-                finally
-                {
-                    staticVariable.currentPageDG++;
-
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null!;
+            }
+            finally
+            {
+                staticVariable.currentPageDG++;
             }
             return products1;
         }
@@ -268,22 +267,15 @@ namespace StoreControl.ProductsF
 
             // add Columns
             {
-                double totalWidth = 0;
-                double columnWidth = 149;
-                double columnWidthC = 50;
                 double rowHeight = 100;
                 //
                 foreach ((string, string) st in sortedColmuns)
                 {
-                    if(st.Item1 == "rowIndex")
-                        columnWidth = columnWidthC;
-
                     if (st.Item1 == "img")
                     {
                         DataGridTemplateColumn imageColumn = new DataGridTemplateColumn
                         {
                             Header = st.Item2,
-                            Width = columnWidth,
                             SortMemberPath = st.Item1,
                         };
 
@@ -304,7 +296,6 @@ namespace StoreControl.ProductsF
                         var comboBoxColumn = new DataGridComboBoxColumn
                         {
                             Header = st.Item2,
-                            Width = columnWidth,
                             SelectedValueBinding = new Binding("Category.categoriesId"),
                             SelectedValuePath = "categoriesId",
                             DisplayMemberPath = "categoryName",
@@ -320,7 +311,6 @@ namespace StoreControl.ProductsF
                         {
                             Header = st.Item2,
                             Binding = new Binding(st.Item1),
-                            Width = columnWidth
                         };
 
                         // Set ElementStyle for DataTrigger
@@ -345,13 +335,12 @@ namespace StoreControl.ProductsF
                     }
                     else
                     {
-                        staticVariable.staticFP!.dataGrid.Columns.Add(new DataGridTextColumn() { Header = st.Item2, Binding = new Binding(st.Item1), Width = columnWidth });
+                        staticVariable.staticFP!.dataGrid.Columns.Add(new DataGridTextColumn() { Header = st.Item2, Binding = new Binding(st.Item1)});
                     }
-                    totalWidth += columnWidth + 8;
                 }
                 // datagrid properties
                 staticVariable.staticFP!.dataGrid.RowHeight = rowHeight;
-                staticVariable.staticFP.dataGrid.Width = totalWidth;
+                // columnWidth is defined in function resizeFP in mainWindows
             }
         }
         // search
@@ -363,7 +352,6 @@ namespace StoreControl.ProductsF
                 try
                 {
                     var lowerKeyword = keyWord.ToLower();
-
                     var query = context.products
                      .Include(p => p.Category)
                      .AsQueryable();
@@ -475,25 +463,25 @@ namespace StoreControl.ProductsF
             return isImageChanged;
         }
         // clear
-        public void allClear(bool withCategory)
+        public void allClear(bool withCategory, bool withSearchTB)
         {
-            if (staticVariable.staticFP != null)
+            foreach (TextBox textBox in staticVariable.staticFP!.gridFP.Children.OfType<TextBox>())
             {
-                staticVariable.staticFP.productIdTB.Clear();
-                staticVariable.staticFP.productNameTB.Clear();
-                staticVariable.staticFP.descriptionTB.Clear();
-                if (withCategory)
-                    staticVariable.staticFP.categoryCB.SelectedItem = null;
-                staticVariable.staticFP.articleNumberTB.Clear();
-                staticVariable.staticFP.quantityTB.Clear();
-                staticVariable.staticFP.purchasePriceTB.Clear();
-                staticVariable.staticFP.sellingPriceTB.Clear();
-                staticVariable.staticFP.minimumStockTB.Clear();
+                if (textBox.Name == "searchTB")
+                {
+                    if (withSearchTB)
+                        textBox.Clear();
+                    continue;
+                }
 
-                setDefaultImage();
+                textBox.Clear();
             }
+
+            if (withCategory)
+                staticVariable.staticFP.categoryCB.SelectedItem = null;
+            setDefaultImage();
             Flags.isImageChanged = false;
-            staticVariable.currentProduct = new Products();
+            staticVariable.currentProduct = new productsDG();
             Flags.isSearching = false;
         }
         public void dataGridClear()
@@ -501,8 +489,7 @@ namespace StoreControl.ProductsF
             staticVariable.currentPageDG = 0;
             Flags.allProductsLoadedDB = false;
             Flags.isLoadingDB = false;
-            if (staticVariable.staticFP != null)
-                staticVariable.staticFP.dataGrid.Items.Clear();
+            staticVariable.staticFP!.dataGrid.Items.Clear();
         }
         public Products? getProduct(bool withCategory, bool  withUser)
         {

@@ -30,6 +30,11 @@
                 <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
                     <Setter Property="Background" Value="{DynamicResource CueBannerBrush}"/>
                 </DataTrigger>
+                <!-- Focus Trigger -->
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource goldC}"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
             </Style.Triggers>
         </Style>
         <Style TargetType="TextBox">
@@ -44,10 +49,10 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border 
-                    Name="border" 
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}">
+                              Name="border" 
+                              Background="{TemplateBinding Background}"
+                              BorderBrush="{TemplateBinding BorderBrush}"
+                              BorderThickness="{TemplateBinding BorderThickness}">
                             <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -274,11 +279,10 @@
         <Button x:Name="minimumStockB" Content="Button" HorizontalAlignment="Left" Margin="868,219,0,0" VerticalAlignment="Top" Height="49" Width="115" Click="minimumStockB_Click" />
         <!-- search -->
         <TextBox x:Name="searchTB" HorizontalAlignment="Left" Margin="363,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322" Height="29" TextChanged="searchTB_TextChanged"  Style="{StaticResource WatermarkTextBox}" />
-        
         <Button x:Name="xSearching" Content="X" HorizontalAlignment="Left" Margin="644,301,0,0" VerticalAlignment="Top" Height="27" Width="40" BorderThickness="0,0,0,0" Click="xSearching_Click"/>
         <!-- datagrid -->
-        <DataGrid x:Name="dataGrid" HorizontalScrollBarVisibility="Auto" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns="False" Width="27" Margin="7,369,0,9" RenderTransformOrigin="0.5,0.5" SelectionChanged="dataGrid_SelectionChanged"
-          SelectionMode="Single" ScrollViewer.ScrollChanged="dataGrid_ScrollChanged" >
+        <DataGrid x:Name="dataGrid" HorizontalScrollBarVisibility="Auto" IsReadOnly="True" HorizontalAlignment="Left" AutoGenerateColumns="False" Width="27" Margin="7,369,0,9" RenderTransformOrigin="0.5,0.5"  SelectionMode="Single" 
+          SelectionChanged="dataGrid_SelectionChanged" ScrollViewer.ScrollChanged="dataGrid_ScrollChanged" >
             <DataGrid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
